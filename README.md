@@ -13,35 +13,52 @@ This is a simple GUI application built with KivyMD that allows users to convert 
 
 ## Requirements
 
-- Python 3.6+
+- Python 3.9
+- Conda (for environment management)
 - KivyMD
 - PyPDF2
 
-## Installation
+## Environment Setup
 
-1. Clone this repository:
+We use Conda to manage the project environment. Follow these steps to set up your environment:
+
+1. Make sure you have Conda installed. If not, download and install it from [Anaconda](https://www.anaconda.com/products/distribution) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
+
+2. Clone this repository:
 
 git clone https://github.com/yourusername/pdf-to-text-converter.git
 
-2. Navigate to the project directory:
+3. Navigate to the project directory:
 
 cd pdf-to-text-converter
 
-3. Install the required packages:
+4. Create the Conda environment:
 
-pip install kivymd PyPDF2
+conda env create -f environment.yml
+
+5. Activate the environment:
+
+conda activate pdf_converter_env
+
+## Installation
+
+Once you have set up and activated the Conda environment, you don't need to install the packages separately as they are already included in the environment.
 
 ## Usage
 
-1. Run the application:
+1. Ensure your Conda environment is activated:
+
+conda activate pdf_converter_env
+
+2. Run the application:
 
 python main.py
 
-2. Use the "Select PDF" button to choose a PDF file from your system.
+3. Use the "Select PDF" button to choose a PDF file from your system.
 
-3. Click the "Convert to Text" button to convert the selected PDF to text.
+4. Click the "Convert to Text" button to convert the selected PDF to text.
 
-4. The application will display a success message with the path of the output text file, or an error message if something goes wrong.
+5. The application will display a success message with the path of the output text file, or an error message if something goes wrong.
 
 ## How it works
 
@@ -60,4 +77,4 @@ Contributions, issues, and feature requests are welcome. Feel free to check [iss
 
 ## Author
 
-Fredrik
+FrtjoffS
