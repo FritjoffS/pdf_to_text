@@ -57,12 +57,6 @@ class PDFToTextConverter(MDApp):
         )
         screen.add_widget(convert_button)
 
-        # self.progress_bar = MDProgressBar(
-        #     pos_hint={'center_x': 0.5, 'center_y': 0.4},
-        #     size_hint_x=0.8,
-        #     value=0
-        # )
-
         self.progress_bar = MDProgressBar(
             pos_hint={"center_x": 0.5, "center_y": 0.4},
             size_hint_x=0.8,
