@@ -140,7 +140,7 @@ class PDFToTextConverter(MDApp):
                 )
             )
         except Exception as e:
-            Clock.schedule_once(lambda dt: self.update_result(f"Error: {str(e)}"))
+            Clock.schedule_once(lambda dt, e=e: self.update_result(f"Error: {str(e)}"))
         finally:
             Clock.schedule_once(lambda dt: self.reset_progress())
 
