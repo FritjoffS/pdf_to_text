@@ -1,0 +1,10 @@
+name: pdf_converter_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - kivymd==1.1.1
+    - PyPDF2==3.0.1
