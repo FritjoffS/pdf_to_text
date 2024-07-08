@@ -16,24 +16,39 @@ class PDFToTextConverter(MDApp):
         
         screen = MDScreen()
         
-        self.file_path = MDTextField(
-            hint_text="PDF File Path",
-            pos_hint={'center_x': 0.5, 'center_y': 0.7},
+        self.input_file_path = MDTextField(
+            hint_text="Input PDF File Path",
+            pos_hint={'center_x': 0.5, 'center_y': 0.8},
             size_hint_x=None,
             width=300
         )
-        screen.add_widget(self.file_path)
+        screen.add_widget(self.input_file_path)
         
-        select_button = MDRaisedButton(
+        select_input_button = MDRaisedButton(
             text="Select PDF",
-            pos_hint={'center_x': 0.3, 'center_y': 0.6},
-            on_release=self.open_file_manager
+            pos_hint={'center_x': 0.3, 'center_y': 0.7},
+            on_release=lambda x: self.open_file_manager('input')
         )
-        screen.add_widget(select_button)
+        screen.add_widget(select_input_button)
+        
+        self.output_file_path = MDTextField(
+            hint_text="Output Text File Path",
+            pos_hint={'center_x': 0.5, 'center_y': 0.6},
+            size_hint_x=None,
+            width=300
+        )
+        screen.add_widget(self.output_file_path)
+        
+        select_output_button = MDRaisedButton(
+            text="Select Output",
+            pos_hint={'center_x': 0.3, 'center_y': 0.5},
+            on_release=lambda x: self.open_file_manager('output')
+        )
+        screen.add_widget(select_output_button)
         
         convert_button = MDRaisedButton(
             text="Convert to Text",
-            pos_hint={'center_x': 0.7, 'center_y': 0.6},
+            pos_hint={'center_x': 0.7, 'center_y': 0.5},
             on_release=self.convert_pdf_to_text
         )
         screen.add_widget(convert_button)
@@ -41,7 +56,7 @@ class PDFToTextConverter(MDApp):
         self.result_label = MDLabel(
             text="",
             halign="center",
-            pos_hint={'center_x': 0.5, 'center_y': 0.4}
+            pos_hint={'center_x': 0.5, 'center_y': 0.3}
         )
         screen.add_widget(self.result_label)
         
@@ -50,22 +65,38 @@ class PDFToTextConverter(MDApp):
             select_path=self.select_path
         )
         
+        self.file_manager_mode = 'input'
+        
         return screen
     
-    def open_file_manager(self, *args):
-        self.file_manager.show('/')
+    def open_file_manager(self, mode):
+        self.file_manager_mode = mode
+        if mode == 'input':
+            self.file_manager.show('/')
+        else:
+            self.file_manager.show(os.path.expanduser('~'))
     
     def exit_file_manager(self, *args):
         self.file_manager.close()
     
     def select_path(self, path):
-        self.file_path.text = path
+        if self.file_manager_mode == 'input':
+            self.input_file_path.text = path
+        else:
+            dir_path = os.path.dirname(path)
+            self.output_file_path.text = os.path.join(dir_path, 'output.txt')
         self.exit_file_manager()
     
     def convert_pdf_to_text(self, *args):
-        pdf_path = self.file_path.text
+        pdf_path = self.input_file_path.text
+        output_path = self.output_file_path.text
+        
         if not pdf_path or not pdf_path.lower().endswith('.pdf'):
             self.result_label.text = "Please select a valid PDF file."
+            return
+        
+        if not output_path:
+            self.result_label.text = "Please select an output location."
             return
         
         try:
@@ -74,7 +105,6 @@ class PDFToTextConverter(MDApp):
             for page in reader.pages:
                 text += page.extract_text() + "\n"
             
-            output_path = pdf_path[:-4] + ".txt"
             with open(output_path, "w", encoding="utf-8") as f:
                 f.write(text)
             
