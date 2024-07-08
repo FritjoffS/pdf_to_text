@@ -1,4 +1,3 @@
-markdown
 # PDF to Text Converter
 
 ## Description
