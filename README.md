@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # PDF to Text Converter
 
 ## Description
@@ -14,7 +16,7 @@ This is a simple GUI application built with KivyMD that allows users to convert 
 ## Requirements
 
 - Python 3.9
-- Conda (for environment management)
+- Anaconda (for environment management)
 - KivyMD
 - PyPDF2
 
